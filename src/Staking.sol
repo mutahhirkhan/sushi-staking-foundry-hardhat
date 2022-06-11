@@ -3,6 +3,7 @@ pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "forge-std/Test.sol";
 
 contract Staking is ERC20("PilotCafe", "xPILOT") {
 
@@ -10,6 +11,12 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
 
     constructor(IERC20 _pilot) public {
         pilot = _pilot;
+    }
+    function pilotBalance(address user) external view returns (uint256) {
+        return pilot.balanceOf(user);
+    }
+    function xPilotBalance(address user) external view returns (uint256) {
+        return balanceOf(user);
     }
 
     // Enter the bar. Pay some PILOTs. Earn some shares.
