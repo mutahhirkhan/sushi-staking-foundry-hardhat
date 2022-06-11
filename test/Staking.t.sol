@@ -27,7 +27,7 @@ contract ContractTest is Test {
     ///@dev this is a helper function to test the staking contract balance
     ///and xPILOT balance in any of the test function. If called independently,
     ///then all values will be zero.
-    function StakingBalance() public {
+    function stakingBalance() public {
         assertEq(pilot.balanceOf(address(staking)), ONE * 40); //10 pilots staked
         assertEq(staking.totalSupply(), ONE * 40); //xPILOT total supply
     }
@@ -129,15 +129,15 @@ contract ContractTest is Test {
 
     // ACTUAL TESTING STARTS HERE
     function testDepositTenFromEach() public {
-        AliceTenDeposit();
-        BobTenDeposit();
-        CarolTenDeposit();
+        aliceTenDeposit();
+        bobTenDeposit();
+        carolTenDeposit();
 
-        StakingBalance();
+        stakingBalance();
 
-        CarolTwentyClaim();
+        carolTwentyClaim();
         pilot.mint(address(staking), ONE * 100);
-        AliceTenClaim();
-        BobTenClaim();
+        aliceTenClaim();
+        bobTenClaim();
     }
 }
