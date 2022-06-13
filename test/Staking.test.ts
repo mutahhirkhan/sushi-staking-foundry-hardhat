@@ -10,7 +10,7 @@ describe("Staking", () => {
   let staking: Staking;
   let pilot: Token;
   let ONE = parseUnits('1','18');
-  const [
+  let [
     wallet,
     alice,
     bob,
@@ -22,22 +22,20 @@ describe("Staking", () => {
     user4,
   ] = waffle.provider.getWallets();
   beforeEach(async () => {
-    const [alice, bob, carol] = await ethers.getSigners();
     const tokenContract = await ethers.getContractFactory("Token");
     const stakingContract = await ethers.getContractFactory("Staking");
     pilot = (await tokenContract.deploy()) as Token;
     staking = (await stakingContract.deploy(pilot.address)) as Staking;
-    console.log('one ether',ONE);
     pilot.connect(alice).mint(alice.address, ONE.mul(100));
     pilot.connect(bob).mint(bob.address, ONE.mul(100));
     pilot.connect(carol).mint(carol.address, ONE.mul(100));
   });
   describe("#enter", () => {
     it("should not allow to enter if not enough approved", async () => {
-      let reason:string = "ERC20: insufficient allowance";
-      let hundredEthers = parseUnits('100',18);
+      const reason:string = "ERC20: insufficient allowance";
+      const hundredEthers = parseUnits('100',18);
       //enter with no approval with 100tokens
-      let enterWithoutApprove = staking.connect(alice).enter(hundredEthers); 
+      const enterWithoutApprove = staking.connect(alice).enter(hundredEthers); 
       await expect( enterWithoutApprove ).to.be.revertedWith(reason);
 
       //approve 50 tokens
@@ -56,8 +54,21 @@ describe("Staking", () => {
       //check balance of pilot of staking contract
       const balance = await pilot.balanceOf(staking.address);
       expect(balance).to.be.equal(hundredEthers);
-      
-
     });
   });
+  describe("#leave", () => {
+    it('should not allow to withdraw more than deposited amount', async() => {
+      const hundredEthers: BigNumber = parseUnits('100',18);
+      const reason: string = "ERC20: burn amount exceeds balance"
+      //approve 100 tokens
+      await pilot.connect(alice).approve(staking.address, hundredEthers);
+
+      //enter 100 tokens
+      await staking.connect(alice).enter(hundredEthers);
+
+      //leave with 200 tokens
+      const burnResponse = staking.connect(alice).leave(hundredEthers.mul(2));  //200 withdraw
+      await expect(burnResponse).to.be.revertedWith(reason);
+    })
+  })
 });

@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.14% </span>
+        <span class="strong">64.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>1/14</span>
+        <span class='fraction'>9/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">60% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/5</span>
+        <span class='fraction'>3/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.14% </span>
+        <span class="strong">64.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>1/14</span>
+        <span class='fraction'>9/14</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -95,7 +95,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -106,22 +106,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,23 +146,23 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
     }
 &nbsp;
     // Enter the bar. Pay some PILOTs. Earn some shares.
-<span class="fstat-no" title="function not covered" >    function enter(uint256 _amount) public {</span>
-<span class="cstat-no" title="statement not covered" >        uint256 totalPilot = pilot.balanceOf(address(this));</span>    //PILOT toppedup token
-<span class="cstat-no" title="statement not covered" >        uint256 totalShares = totalSupply();</span>                    //xPILOT total supply
-<span class="cstat-no" title="statement not covered" >        if (totalShares == 0 || totalPilot == 0) {</span>
-<span class="cstat-no" title="statement not covered" >            _mint(msg.sender, _amount)</span>;
+    function enter(uint256 _amount) public {
+        uint256 totalPilot = pilot.balanceOf(address(this));    //PILOT toppedup token
+        uint256 totalShares = totalSupply();                    //xPILOT total supply
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (totalShares == 0 || totalPilot == 0) {
+            _mint(msg.sender, _amount);
         } else {
 <span class="cstat-no" title="statement not covered" >            uint256 what = (_amount * totalShares) / totalPilot;</span>
 <span class="cstat-no" title="statement not covered" >            _mint(msg.sender, what)</span>; //xPilot
         }
-<span class="cstat-no" title="statement not covered" >        pilot.transferFrom(msg.sender, address(this), _amount)</span>;
+        pilot.transferFrom(msg.sender, address(this), _amount);
     }
 &nbsp;
     // Leave the bar. Claim back your PILOTs.
-<span class="fstat-no" title="function not covered" >    function leave(uint256 _share) public {</span>
-<span class="cstat-no" title="statement not covered" >        uint256 totalShares = totalSupply();</span>                                    //xPILOT total supply
-<span class="cstat-no" title="statement not covered" >        uint256 what = (_share * pilot.balanceOf(address(this))) / totalShares;</span> //PILOT toppedUp
-<span class="cstat-no" title="statement not covered" >        _burn(msg.sender, _share)</span>;  //xPilot burn
+    function leave(uint256 _share) public {
+        uint256 totalShares = totalSupply();                                    //xPILOT total supply
+        uint256 what = (_share * pilot.balanceOf(address(this))) / totalShares; //PILOT toppedUp
+        _burn(msg.sender, _share);  //xPilot burn
 <span class="cstat-no" title="statement not covered" >        pilot.transfer(msg.sender, what)</span>; //return pilot
     }
 }
@@ -172,7 +172,7 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 13 2022 10:05:19 GMT+0500 (Pakistan Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 13 2022 11:16:43 GMT+0500 (Pakistan Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
