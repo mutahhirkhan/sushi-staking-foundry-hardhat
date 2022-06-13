@@ -4,11 +4,23 @@
 export type { ERC20 } from "./ERC20";
 export type { IERC20Metadata } from "./IERC20Metadata";
 export type { IERC20 } from "./IERC20";
+export type { DSTest } from "./DSTest";
+export type { Script } from "./Script";
+export type { StdError } from "./StdError";
+export type { StdStorage } from "./StdStorage";
+export type { Test } from "./Test";
+export type { Vm } from "./Vm";
 export type { Staking } from "./Staking";
-export type { Token1 } from "./Token1";
+export type { Token } from "./Token";
 
 export { ERC20__factory } from "./factories/ERC20__factory";
 export { IERC20Metadata__factory } from "./factories/IERC20Metadata__factory";
 export { IERC20__factory } from "./factories/IERC20__factory";
+export { DSTest__factory } from "./factories/DSTest__factory";
+export { Script__factory } from "./factories/Script__factory";
+export { StdError__factory } from "./factories/StdError__factory";
+export { StdStorage__factory } from "./factories/StdStorage__factory";
+export { Test__factory } from "./factories/Test__factory";
+export { Vm__factory } from "./factories/Vm__factory";
 export { Staking__factory } from "./factories/Staking__factory";
-export { Token1__factory } from "./factories/Token1__factory";
+export { Token__factory } from "./factories/Token__factory";

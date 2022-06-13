@@ -25,13 +25,37 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "DSTest",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DSTest__factory>;
+    getContractFactory(
+      name: "Script",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Script__factory>;
+    getContractFactory(
+      name: "StdError",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.StdError__factory>;
+    getContractFactory(
+      name: "StdStorage",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.StdStorage__factory>;
+    getContractFactory(
+      name: "Test",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Test__factory>;
+    getContractFactory(
+      name: "Vm",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Vm__factory>;
+    getContractFactory(
       name: "Staking",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Staking__factory>;
     getContractFactory(
-      name: "Token1",
+      name: "Token",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Token1__factory>;
+    ): Promise<Contracts.Token__factory>;
 
     getContractAt(
       name: "ERC20",
@@ -49,15 +73,45 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "DSTest",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.DSTest>;
+    getContractAt(
+      name: "Script",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Script>;
+    getContractAt(
+      name: "StdError",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.StdError>;
+    getContractAt(
+      name: "StdStorage",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.StdStorage>;
+    getContractAt(
+      name: "Test",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Test>;
+    getContractAt(
+      name: "Vm",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Vm>;
+    getContractAt(
       name: "Staking",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Staking>;
     getContractAt(
-      name: "Token1",
+      name: "Token",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.Token1>;
+    ): Promise<Contracts.Token>;
 
     // default types
     getContractFactory(
