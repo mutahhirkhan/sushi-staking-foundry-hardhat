@@ -71,4 +71,57 @@ describe("Staking", () => {
       await expect(burnResponse).to.be.revertedWith(reason);
     })
   })
+  describe("enter & #leave", () => {
+    it('should work with more than one participant', async () => {
+      //approve 100 from alice and bob
+      const hundredEthers: BigNumber = parseUnits('100',18);
+      const twentyEthers: BigNumber = parseUnits('20',18);
+      const tenEthers: BigNumber = parseUnits('10',18);
+      await pilot.connect(alice).approve(staking.address, hundredEthers);
+      await pilot.connect(bob).approve(staking.address, hundredEthers);
+      
+      //enter with 20 and 10 from alice and bob respectively
+      await staking.connect(alice).enter(twentyEthers); //20 from alice
+      await staking.connect(bob).enter(tenEthers); //10 from bob
+      
+      //check balance of pilot of staking contract and balance of alice and bob of xPILOT
+      const stakingInitialBalance = await pilot.balanceOf(staking.address);
+      expect(stakingInitialBalance).to.be.equal(parseUnits('30',18)); 
+      
+      let aliceBalance = await staking.xPilotBalance(alice.address);
+      let bobBalance = await staking.xPilotBalance(bob.address);
+      expect(aliceBalance).to.be.equal(twentyEthers);
+      expect(bobBalance).to.be.equal(tenEthers);
+
+      //staking contract gets funded with 20 tokens from external source of carol
+      await pilot.connect(carol).transfer(staking.address, twentyEthers);
+
+      //alice deposits ten more tokens. she should receive 10*30/50 = 6 shares
+      await staking.connect(alice).enter(tenEthers);
+      aliceBalance = await staking.xPilotBalance(alice.address);
+      bobBalance = await staking.xPilotBalance(bob.address);
+      expect(aliceBalance).to.be.equal(parseUnits('26',18)); //20 earlier and 6 new
+      expect(bobBalance).to.be.equal(tenEthers);
+
+      //bob withdraws 5 share out of 10
+      await staking.connect(bob).leave(tenEthers.div(2)); //withdrawing 5 shares
+      aliceBalance = await staking.xPilotBalance(alice.address);
+      bobBalance = await staking.xPilotBalance(bob.address);
+      expect(aliceBalance).to.be.equal(parseUnits('26',18)); //26 = 20 earlier + 6 new
+      expect(bobBalance).to.be.equal(tenEthers.div(2)); //5 remains out of 10
+
+      const stakingFinalBalance = await pilot.balanceOf(staking.address);
+      const aliceFinalBalance = await pilot.balanceOf(alice.address);
+      const bobFinalBalance = await pilot.balanceOf(bob.address);
+      expect(stakingFinalBalance.toString()).to.be.equal("51666666666666666667");
+      expect(aliceFinalBalance).to.be.equal(parseUnits('70', 18));
+      expect(bobFinalBalance.toString()).to.be.equal("98333333333333333333");
+
+      // console.log(stakingFinalBalance);
+      // console.log(aliceFinalBalance);
+      // console.log(bobFinalBalance);
+
+      // expect(stakingFinalBalance).to.be.equal(parseUnits('30',18));
+    })
+  })
 });

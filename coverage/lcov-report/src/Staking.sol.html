@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.29% </span>
+        <span class="strong">92.86% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/14</span>
+        <span class='fraction'>13/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/5</span>
+        <span class='fraction'>4/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.29% </span>
+        <span class="strong">92.86% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/14</span>
+        <span class='fraction'>13/14</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -95,34 +95,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">7×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
@@ -141,19 +141,19 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
 <span class="fstat-no" title="function not covered" >    function pilotBalance(address user) external view returns (uint256) {</span>
 <span class="cstat-no" title="statement not covered" >        return pilot.balanceOf(user);</span>
     }
-<span class="fstat-no" title="function not covered" >    function xPilotBalance(address user) external view returns (uint256) {</span>
-<span class="cstat-no" title="statement not covered" >        return balanceOf(user);</span>
+    function xPilotBalance(address user) external view returns (uint256) {
+        return balanceOf(user);
     }
 &nbsp;
     // Enter the bar. Pay some PILOTs. Earn some shares.
     function enter(uint256 _amount) public {
         uint256 totalPilot = pilot.balanceOf(address(this));    //PILOT toppedup token
         uint256 totalShares = totalSupply();                    //xPILOT total supply
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (totalShares == 0 || totalPilot == 0) {
+        if (totalShares == 0 || totalPilot == 0) {
             _mint(msg.sender, _amount);
         } else {
-<span class="cstat-no" title="statement not covered" >            uint256 what = (_amount * totalShares) / totalPilot;</span>
-<span class="cstat-no" title="statement not covered" >            _mint(msg.sender, what)</span>; //xPilot
+            uint256 what = (_amount * totalShares) / totalPilot;
+            _mint(msg.sender, what); //xPilot
         }
         pilot.transferFrom(msg.sender, address(this), _amount);
     }
@@ -163,7 +163,7 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
         uint256 totalShares = totalSupply();                                    //xPILOT total supply
         uint256 what = (_share * pilot.balanceOf(address(this))) / totalShares; //PILOT toppedUp
         _burn(msg.sender, _share);  //xPilot burn
-<span class="cstat-no" title="statement not covered" >        pilot.transfer(msg.sender, what)</span>; //return pilot
+        pilot.transfer(msg.sender, what); //return pilot
     }
 }
 &nbsp;</pre></td></tr>
@@ -172,7 +172,7 @@ contract Staking is ERC20("PilotCafe", "xPILOT") {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 13 2022 11:16:43 GMT+0500 (Pakistan Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 13 2022 11:59:36 GMT+0500 (Pakistan Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
