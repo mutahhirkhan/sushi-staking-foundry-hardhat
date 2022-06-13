@@ -5,52 +5,7 @@ import { Token } from "../typechain/Token.d";
 import { ethers, waffle } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { parseUnits } from "ethers/lib/utils";
-/**
- * alice deposit 20 
-pilot 0
-xpilot 0
-alice get 20xpilot
-----------------------
-bob deposit 10
-pilot 20
-xpilot 20
-user get 10xpilot
-----------------------
- |	pilot balance = 30
- |	xpilot balance = 30
- |	alice balance = 20
- |	bob balance = 10
------------------------
-admin funded 20 pilots to contract
- |	pilot balance = 50
- |	xpilot balance = 30
- |	alice balance = 20
- |	bob balance = 10
-------------------------
-alice deposit 10
-pilot = 50
-xpilot = 30
-user get (10 * 30 / 50) 6xpilot
- |	pilot balance = 60
- |	xpilot balance = 36
- |	alice balance = 26
- |	bob balance = 10
-------------------------
-bob withdraw 5 
-xpilot = 36
-user get (5 * 60 / 36) 8.3pilot back
- |	pilot balance = 51.666
- |	xpilot balance = 31
- |	alice balance = 26xpilot
- |	bob balance = 5xpilot
-------------------------
-final balances of pilot token of accounts
-staking = 60 - 8.333  = 51.666
-alice = 100-20-10 = 70
-bob = 100-10-5+8.33+5 = 98.33
 
-
- */
 describe("Staking", () => {
   let staking: Staking;
   let pilot: Token;

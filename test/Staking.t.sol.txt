@@ -1,0 +1,31 @@
+    10 tokens deposit
+    pilot 0
+    xpilot 0
+    user get 10 xpilot
+    ----------------
+    10 token deposit
+    pilot 10
+    xpilot 10
+    user get (10 * 10 / 10) = 10
+    -----------------
+    20 token deposit
+    pilot 20 
+    xpilot 20
+    user get (20 * 20 / 20) = 20 (xpilot)
+    -----------------
+    3rd user claim for 20 tokens
+    xpilot 40
+    user get (20 * 40 / 40) = 20(pilot)
+    ------------------
+    admin toppedup 100 pilot
+    -------------------
+    first user claims for 10 tokens
+    user get ( 10 * 120 / 20)  = 60 tokens (pilot)
+    ------------------
+    2nd user claims for 10 tokens
+    user get (10 * 60 / 10) = 60 tokens pilot
+    ------------------
+    pilot 0
+    xpilot 0
+    user staked 0
+    ------------------
